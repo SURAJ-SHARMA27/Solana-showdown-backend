@@ -34,6 +34,10 @@ const gameSchema = new mongoose.Schema({
 const Game = mongoose.model("Game", gameSchema);
 
 // Start a new game
+app.get("/",(req,res)=>{
+    console.log("Hello this is health checkup and successfull")
+    res.send({"Hello this is health checkup and successfull"})
+})
 app.post("/game/create", async (req, res) => {
     const { createdBy, startingAmount, duration,publicKey } = req.body;
 
