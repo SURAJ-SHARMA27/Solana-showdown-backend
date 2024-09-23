@@ -1,0 +1,24 @@
+{
+  "name": "solshowdown-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@mui/icons-material": "^6.1.1",
+    "@mui/material": "^6.1.1",
+    "@solana/wallet-adapter-base": "^0.9.23",
+    "@solana/wallet-adapter-react": "^0.15.35",
+    "@solana/wallet-adapter-react-ui": "^0.9.35",
+    "@solana/web3.js": "^1.95.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "mongoose": "^8.6.3"
+  }
+}
