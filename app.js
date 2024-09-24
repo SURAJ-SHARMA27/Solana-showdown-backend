@@ -28,7 +28,8 @@ const gameSchema = new mongoose.Schema({
     prize: { type: Number, default: 0 },
     winner: String,
     isActive:{type: Boolean, default:true},
-    expiredAt:Date
+    expiredAt:Date,
+    isWinnerPaid:{type: Boolean, default:false},
 });
 
 const Game = mongoose.model("Game", gameSchema);
@@ -150,12 +151,25 @@ app.get("/game/findRecent", async (req, res) => {
 });
 app.get("/game/findWinner", async (req, res) => {
     const recentGame = await Game.findOne().sort({ expiredAt: -1 });
+
+    if(recentGame.isWinnerPaid==true){
+        return res.status(200).json({ message: "Winner recived the pool amount already" });
+    }
     if (!recentGame) {
         return res.status(404).json({ message: "No Recent game found." });
     }
     res.json({
-        winner: recentGame.winner
+        winner: recentGame.winner,
+        amount: recentGame.prize
     });
+});
+app.get("/game/postWinner", async (req, res) => {
+    const recentGame = await Game.findOne().sort({ expiredAt: -1 });
+    if (!recentGame) {
+        return res.status(404).json({ message: "No Recent game found." });
+    }
+    recentGame.isWinnerPaid=true;
+    await recentGame.save();
 });
 // Server listening
 const PORT = process.env.PORT || 3000;
