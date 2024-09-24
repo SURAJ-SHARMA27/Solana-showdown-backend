@@ -159,10 +159,10 @@ app.get("/game/findWinner", async (req, res) => {
     res.json({
         winner: recentGame.winner,
         amount: recentGame.prize,
-        isPaid:isWinnerPaid
+        isPaid:recentGame.isWinnerPaid
     });
 });
-app.get("/game/postWinner", async (req, res) => {
+app.post("/game/postWinner", async (req, res) => {
     const recentGame = await Game.findOne().sort({ expiredAt: -1 });
     if (!recentGame) {
         return res.status(404).json({ message: "No Recent game found." });
