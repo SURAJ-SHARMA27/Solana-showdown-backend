@@ -152,15 +152,14 @@ app.get("/game/findRecent", async (req, res) => {
 app.get("/game/findWinner", async (req, res) => {
     const recentGame = await Game.findOne().sort({ expiredAt: -1 });
 
-    if(recentGame.isWinnerPaid==true){
-        return res.status(200).json({ message: "Winner recived the pool amount already" });
-    }
+   
     if (!recentGame) {
         return res.status(404).json({ message: "No Recent game found." });
     }
     res.json({
         winner: recentGame.winner,
-        amount: recentGame.prize
+        amount: recentGame.prize,
+        isPaid:isWinnerPaid
     });
 });
 app.get("/game/postWinner", async (req, res) => {
