@@ -148,7 +148,15 @@ app.get("/game/findRecent", async (req, res) => {
         prize: recentGame.prize,
     });
 });
-
+app.get("/game/findWinner", async (req, res) => {
+    const recentGame = await Game.findOne().sort({ expiredAt: -1 });
+    if (!recentGame) {
+        return res.status(404).json({ message: "No Recent game found." });
+    }
+    res.json({
+        winner: recentGame.winner
+    });
+});
 // Server listening
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
